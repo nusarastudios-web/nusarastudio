@@ -2,7 +2,7 @@
 <title>NUSARA</title>
 <meta name="description" content="NUSARA: AI tools, studio video AI, dan solusi digital oleh Chandra Kurnia Wijaya.">
 <link rel="stylesheet" href="css/styles.css">
-<style>.site-header{top:env(safe-area-inset-top,0px)}.preview-bar{background:#F28C28;color:#101827;text-align:center;font-weight:700;font-size:.9rem;padding:8px 16px}</style>
+<style>.site-header{top:env(safe-area-inset-top,0px)}.hero-grid{grid-template-columns:1fr}.hero-copy{max-width:760px}.preview-bar{background:#F28C28;color:#101827;text-align:center;font-weight:700;font-size:.9rem;padding:8px 16px}</style>
 <a class="skip" href="#ai-tools">Lewati ke generator</a>
 
 <header class="site-header" id="top">
@@ -12,7 +12,7 @@
       <span class="brand-tag">AI FOR WORK BY CHANDRA WITH AI-ASSISTED AGENTS</span>
     </a>
     <nav id="nav" class="nav" aria-label="Navigasi utama">
-      <a href="#ai-tools">AI Tools</a><a href="#about">About</a><a href="#services">Services</a><a href="#certifications">Certifications</a><a href="#achievement">Achievement</a><a href="#portfolio">Portfolio</a><a href="#products">Products</a><a href="#contact">Contact</a>
+      <a href="#about">About</a><a href="#services">Services</a><a href="#certifications">Certifications</a><a href="#achievement">Achievement</a><a href="#portfolio">Portfolio</a><a href="#products">Products</a><a href="#contact">Contact</a><a href="#ai-tools">AI Tools</a>
       <a class="btn btn-primary nav-cta" href="#ai-tools">Try AI Tools</a>
     </nav>
     <button class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Buka menu"><span></span><span></span><span></span></button>
@@ -23,43 +23,42 @@
 <section class="hero" aria-labelledby="hero-h">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <h1 id="hero-h">Turn Your Ideas Into AI Images &amp; Videos.</h1>
-      <p class="lead">Ubah ide sederhana menjadi gambar dan video berbasis AI melalui workflow yang praktis. Mulai dari prompt atau foto, lanjutkan menjadi video, lalu unduh hasilnya untuk kebutuhan konten, promosi, dan bisnis.</p>
+      <h1 id="hero-h">Turn Your Ideas Into AI Images.</h1>
+      <p class="lead">Ubah ide sederhana menjadi gambar berbasis AI yang siap pakai. Tulis prompt atau unggah foto, jadi gambar, lalu unduh hasilnya untuk kebutuhan konten, promosi, dan bisnis.</p>
       <div class="cta-row">
         <a class="btn btn-primary btn-lg" href="#ai-tools">Mulai Gratis</a>
         <a class="btn btn-ghost-light btn-lg" href="#portfolio">Jelajahi Portofolio</a>
       </div>
       <p class="built-for">Built for Creators, UMKM &amp; Businesses</p>
     </div>
-    <figure class="flow" aria-label="Alur Simple Prompt, AI Image, AI Video">
-      <ol class="flow-frames">
-        <li class="frame frame-prompt"><span class="frame-label">Simple Prompt</span><p>“Robot putih sedang bekerja di depan laptop, cahaya biru bergerak di sekelilingnya.”</p></li>
-        <li class="frame frame-image"><span class="frame-label">AI Image</span><img src="assets/video/nusara-bumper-poster.webp" alt="Contoh gambar: robot putih di depan laptop" width="640" height="360" loading="eager"></li>
-        <li class="frame frame-video"><span class="frame-label">AI Video</span><video id="bumper" muted loop playsinline preload="metadata" poster="assets/video/nusara-bumper-poster.webp" aria-label="Bumper video NUSARA"><source src="assets/video/nusara-bumper.mp4" type="video/mp4"></video><button class="play" id="bumper-play" aria-label="Putar video bumper">▶</button></li>
-      </ol>
-      <figcaption>Ilustrasi alur kerja dengan visual bumper NUSARA — bukan hasil dari generator di bawah.</figcaption>
-    </figure>
+    
   </div>
 </section>
 
+
+
+<section class="section sec-white" id="about" aria-labelledby="about-h"><div class="wrap" id="about-root"><h2 id="about-h">Meet the Founder</h2></div></section>
+<section class="section sec-navy" id="services" aria-labelledby="serv-h"><div class="wrap" id="services-root"><h2 id="serv-h" class="visually-hidden">Services</h2></div></section>
+<section class="section sec-light" id="certifications" aria-labelledby="cert-h"><div class="wrap" id="cert-root"><h2 id="cert-h">AI Learning &amp; Certifications</h2></div></section>
+<section class="section sec-navy" id="achievement" aria-labelledby="ach-h"><div class="wrap" id="ach-root"><h2 id="ach-h">Achievement &amp; Recognition</h2></div></section>
+<section class="section sec-white" id="portfolio" aria-labelledby="port-h"><div class="wrap" id="port-root"><h2 id="port-h">Explore My Digital Portfolio</h2></div></section>
+<section class="section sec-light" id="products" aria-labelledby="prod-h"><div class="wrap" id="prod-root"><h2 id="prod-h">Products &amp; Digital Solutions</h2></div></section>
+<section class="section sec-navy" id="contact" aria-labelledby="contact-h"><div class="wrap" id="contact-root"><h2 id="contact-h">Let's Build Something with AI</h2></div></section>
+<noscript><p class="wrap">Aktifkan JavaScript untuk melihat seluruh konten dan memakai generator AI.</p></noscript>
 <section class="section sec-light" id="ai-tools" aria-labelledby="gen-h">
   <div class="wrap">
     <div class="sec-head">
       <h2 id="gen-h">Create With AI</h2>
-      <p class="sub">Dari ide sederhana menjadi gambar dan video dalam satu alur kerja.</p>
+      <p class="sub">Dari ide sederhana menjadi gambar dalam sekejap.</p>
     </div>
     <div id="gen-status" class="notice" role="status" aria-live="polite">Memeriksa status generator…</div>
     <p class="quota" id="gen-quota"></p>
 
-    <ol class="rail" aria-label="Progres workflow">
-      <li data-rail="1" class="on"><b>STEP 1</b> Create Image</li>
-      <li data-rail="2"><b>STEP 2</b> Generate Video</li>
-      <li data-rail="3"><b>STEP 3</b> Download Result</li>
-    </ol>
+    
 
     <!-- STEP 1 -->
     <article class="step" id="step1" aria-labelledby="s1-h">
-      <header><span class="step-n">STEP 1</span><h3 id="s1-h">Create Image</h3></header>
+      <header><h3 id="s1-h">Create Image</h3></header>
       <div class="tabs" role="tablist" aria-label="Mode gambar">
         <button role="tab" id="tab-text" aria-selected="true" aria-controls="pane-text" class="tab on">Text to Image</button>
         <button role="tab" id="tab-image" aria-selected="false" aria-controls="pane-image" class="tab" tabindex="-1">Image to Image</button>
@@ -88,65 +87,23 @@
         <div class="row">
           <a class="btn btn-outline" id="dl-image" href="#">Download Image</a>
           <button class="btn btn-outline" id="regen">Regenerate</button>
-          <button class="btn btn-primary" id="to-video">Continue to Video</button>
+          
         </div>
       </div>
     </article>
 
-    <!-- STEP 2 -->
-    <article class="step is-locked" id="step2" aria-labelledby="s2-h">
-      <header><span class="step-n">STEP 2</span><h3 id="s2-h">Bring Your Image to Life</h3></header>
-      <p class="sub">Ubah gambar yang sudah kamu buat menjadi video AI.</p>
-      <div class="locked-note" id="locked2">Buat gambar di Step 1 dulu. Gambar akan otomatis diteruskan ke sini.</div>
-      <div class="s2-body" id="s2-body" hidden>
-        <figure class="src"><img id="src-preview" alt="Gambar sumber untuk video"><figcaption>Gambar sumber</figcaption></figure>
-        <div>
-          <label for="motion">Prompt gerakan (opsional)</label>
-          <textarea id="motion" rows="3" maxlength="600" placeholder="Kamera perlahan mendekat, dedaunan bergerak tertiup angin, dan karakter menoleh secara natural."></textarea>
-          <div class="opts">
-            <div><label for="duration">Durasi</label><select id="duration"><option value="">Otomatis</option><option value="4">4 detik</option><option value="6">6 detik</option><option value="8">8 detik</option></select></div>
-            <div><label for="vaspect">Aspect ratio</label><select id="vaspect"><option value="16:9">16:9</option><option value="9:16">9:16</option></select></div>
-          </div>
-          <p class="hint">Durasi dan aspect ratio hanya berlaku jika didukung model provider.</p>
-          <div class="row"><button class="btn btn-primary btn-lg" id="gen-video">Generate Video</button><button class="btn btn-quiet" id="back-image">Back to Image</button></div>
-          <ol class="progress" id="v-progress" hidden aria-live="polite"><li data-p="preparing">Preparing your image...</li><li data-p="generating">Generating your video...</li><li data-p="processing">Processing final result...</li><li data-p="done">Video ready!</li></ol>
-          <div class="error" id="vid-error" role="alert" hidden><p></p><button class="btn btn-outline" data-retry="video">Coba lagi</button></div>
-        </div>
-      </div>
-    </article>
+    
 
-    <!-- STEP 3 -->
-    <article class="step is-locked" id="step3" aria-labelledby="s3-h">
-      <header><span class="step-n">STEP 3</span><h3 id="s3-h">Download Result</h3></header>
-      <div class="locked-note" id="locked3">Video final akan muncul di sini setelah Step 2 selesai.</div>
-      <div class="s3-body" id="s3-body" hidden>
-        <video id="final-video" controls playsinline preload="metadata"></video>
-        <div class="row">
-          <a class="btn btn-primary" id="dl-video" href="#">Download Video</a>
-          <a class="btn btn-outline" id="dl-image2" href="#">Download Image</a>
-          <button class="btn btn-outline" id="another">Generate Another Video</button>
-          <button class="btn btn-quiet" id="new-project">Generate New Project</button>
-        </div>
-      </div>
-    </article>
+    
     <p class="fine">Hasil disimpan sementara di server selama <span id="ttl">60</span> menit lalu dihapus otomatis. Baca <a href="privacy.html">kebijakan privasi</a>. Pastikan kamu berhak menggunakan foto yang diunggah.</p>
   </div>
 </section>
-
-<section class="section sec-white" id="about" aria-labelledby="about-h"><div class="wrap" id="about-root"><h2 id="about-h">Meet the Founder</h2></div></section>
-<section class="section sec-navy" id="services" aria-labelledby="serv-h"><div class="wrap" id="services-root"><h2 id="serv-h" class="visually-hidden">Services</h2></div></section>
-<section class="section sec-light" id="certifications" aria-labelledby="cert-h"><div class="wrap" id="cert-root"><h2 id="cert-h">AI Learning &amp; Certifications</h2></div></section>
-<section class="section sec-navy" id="achievement" aria-labelledby="ach-h"><div class="wrap" id="ach-root"><h2 id="ach-h">Achievement &amp; Recognition</h2></div></section>
-<section class="section sec-white" id="portfolio" aria-labelledby="port-h"><div class="wrap" id="port-root"><h2 id="port-h">Explore My Digital Portfolio</h2></div></section>
-<section class="section sec-light" id="products" aria-labelledby="prod-h"><div class="wrap" id="prod-root"><h2 id="prod-h">Products &amp; Digital Solutions</h2></div></section>
-<section class="section sec-navy" id="contact" aria-labelledby="contact-h"><div class="wrap" id="contact-root"><h2 id="contact-h">Let's Build Something with AI</h2></div></section>
-<noscript><p class="wrap">Aktifkan JavaScript untuk melihat seluruh konten dan memakai generator AI.</p></noscript>
 </main>
 
 <footer class="footer">
   <div class="wrap foot-grid">
     <div><span class="wordmark" data-logo><span class="wm-n">N</span>USARA</span><p class="foot-tag">AI FOR WORK BY CHANDRA WITH AI-ASSISTED AGENTS</p><p class="foot-line">Building practical AI solutions for creativity, productivity, and business.</p></div>
-    <nav aria-label="Navigasi footer"><a href="#ai-tools">AI Tools</a><a href="#about">About</a><a href="#services">Services</a><a href="#portfolio">Portfolio</a><a href="#products">Products</a><a href="#contact">Contact</a></nav>
+    <nav aria-label="Navigasi footer"><a href="#about">About</a><a href="#services">Services</a><a href="#portfolio">Portfolio</a><a href="#products">Products</a><a href="#contact">Contact</a><a href="#ai-tools">AI Tools</a></nav>
     <div id="foot-links" class="foot-links"></div>
   </div>
   <div class="wrap foot-bottom"><span>© <span id="year"></span> NUSARA. Semua hak dilindungi.</span><a href="privacy.html">Privacy Policy</a></div>

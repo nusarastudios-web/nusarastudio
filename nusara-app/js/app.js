@@ -112,10 +112,6 @@ function render() {
     h('a', { href: waLink(), target: '_blank', rel: 'noopener noreferrer' }, 'WhatsApp'));
 }
 
-// Bumper video
-const v = $('#bumper'), pb = $('#bumper-play');
-pb.addEventListener('click', () => { if (v.paused) { v.play(); pb.textContent = '❚❚'; pb.setAttribute('aria-label', 'Jeda video'); } else { v.pause(); pb.textContent = '▶'; pb.setAttribute('aria-label', 'Putar video bumper'); } });
-
 // Menu mobile
 const burger = $('#burger'), nav = $('#nav');
 burger.addEventListener('click', () => { const o = nav.classList.toggle('open'); burger.setAttribute('aria-expanded', o); burger.setAttribute('aria-label', o ? 'Tutup menu' : 'Buka menu'); });

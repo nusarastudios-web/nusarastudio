@@ -28,8 +28,8 @@
       "tiktok": { "label": "TikTok @sobatjejakalam", "url": "https://www.tiktok.com/@sobatjejakalam" }
     },
     "business": {
-      "instagram": { "label": "Instagram NUSARA Studio", "url": null },
-      "tiktok": { "label": "TikTok NUSARA Digital", "url": null }
+      "instagram": { "label": "Instagram NUSARA Studio", "url": "https://www.instagram.com/nusarastudio/" },
+      "tiktok": { "label": "TikTok NUSARA Digital", "url": "https://www.tiktok.com/@nusaradigital" }
     }
   },
   "marketplace": [

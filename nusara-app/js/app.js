@@ -70,7 +70,7 @@ function render() {
     h('figure', { class: 'jod-video' },
       h('div', { class: 'jod-media' },
         h('div', { class: 'jod-phone' },
-          h('video', { controls: true, muted: true, preload: 'none', poster: j.poster, playsinline: true }, h('source', { src: j.video, type: 'video/mp4' }))),
+          h('video', { controls: true, muted: true, preload: 'metadata', poster: j.poster, playsinline: true }, h('source', { src: j.video, type: 'video/mp4' }))),
         h('img', { class: 'jod-thumb', src: j.thumb, alt: 'Thumbnail JODOHIN', loading: 'lazy' })),
       h('figcaption', {}, j.videoCaption)),
     h('div', { class: 'jod-slides' }, j.slides.map((s) =>
@@ -79,11 +79,17 @@ function render() {
       h('a', { class: 'btn btn-primary', href: waBuy, target: '_blank', rel: 'noopener noreferrer' }, 'Minat Beli — Chat Admin WA'),
       ext('Coba JODOHIN Gratis', j.siteUrl, 'btn btn-outline'),
       h('a', { class: 'btn btn-outline', href: j.proposal, download: true }, '⬇ Download Proposal Investor (PDF)')));
-  // Video JODOHIN putar otomatis begitu section-nya terlihat di layar
+  // Video JODOHIN putar otomatis begitu section-nya terlihat di layar (coba ulang bila gagal sekali)
   const jv = document.querySelector('.jod-video video');
   if (jv && 'IntersectionObserver' in window) {
-    const io = new IntersectionObserver((es) => { es.forEach((e) => { if (e.isIntersecting) { jv.play().catch(() => {}); io.disconnect(); } }); }, { threshold: 0.5 });
+    let tries = 0;
+    const io = new IntersectionObserver((es) => { es.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const attempt = () => { if (jv.paused) jv.play().then(() => io.disconnect()).catch(() => { if (++tries < 3) setTimeout(attempt, 2000); }); };
+      attempt();
+    }); }, { threshold: 0.25 });
     io.observe(jv);
+    jv.addEventListener('playing', () => io.disconnect(), { once: true });
   }
   // Slide JODOHIN geser otomatis tiap 3,5 detik; jeda saat disentuh/di-hover
   const strip = document.querySelector('.jod-slides');

@@ -68,7 +68,7 @@ function render() {
     h('p', { class: 'jod-sub' }, j.subtitle),
     h('p', {}, j.description),
     h('figure', { class: 'jod-video' },
-      h('video', { controls: true, preload: 'none', poster: j.poster, playsinline: true }, h('source', { src: j.video, type: 'video/mp4' })),
+      h('video', { controls: true, muted: true, preload: 'none', poster: j.poster, playsinline: true }, h('source', { src: j.video, type: 'video/mp4' })),
       h('figcaption', {}, j.videoCaption)),
     h('div', { class: 'jod-slides' }, j.slides.map((s) =>
       h('figure', { class: 'jod-slide' }, h('img', { src: s.src, alt: s.caption, loading: 'lazy' }), h('figcaption', {}, s.caption)))),
@@ -76,6 +76,12 @@ function render() {
       h('a', { class: 'btn btn-primary', href: waBuy, target: '_blank', rel: 'noopener noreferrer' }, 'Minat Beli — Chat Admin WA'),
       ext('Coba JODOHIN Gratis', j.siteUrl, 'btn btn-outline'),
       h('a', { class: 'btn btn-outline', href: j.proposal, download: true }, '⬇ Download Proposal Investor (PDF)')));
+  // Video JODOHIN putar otomatis begitu section-nya terlihat di layar
+  const jv = document.querySelector('.jod-video video');
+  if (jv && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((es) => { es.forEach((e) => { if (e.isIntersecting) { jv.play().catch(() => {}); io.disconnect(); } }); }, { threshold: 0.5 });
+    io.observe(jv);
+  }
 
   // Certifications
   const cr = $('#cert-root');

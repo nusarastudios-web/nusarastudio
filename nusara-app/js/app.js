@@ -96,8 +96,6 @@ function render() {
     const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
     strip.addEventListener('pointerdown', () => { auto = false; stop(); });
     strip.addEventListener('pointerup', () => { setTimeout(() => { auto = true; start(); }, 5000); });
-    strip.addEventListener('mouseenter', () => { auto = false; });
-    strip.addEventListener('mouseleave', () => { auto = true; });
     if ('IntersectionObserver' in window) {
       const io2 = new IntersectionObserver((es) => { es.forEach((e) => { if (e.isIntersecting) start(); else stop(); }); }, { threshold: 0.3 });
       io2.observe(strip);

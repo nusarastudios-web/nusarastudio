@@ -91,13 +91,6 @@
    "Social Media Content",
    "Consistent Character Production",
    "AI Visual Storytelling"
-  ],
-  "showcase": [
-   {
-    "type": "image",
-    "src": "assets/products/jodohin.webp",
-    "caption": "JODOHIN — Platform Biro Jodoh Modern"
-   }
   ]
  },
  "digital": {
@@ -222,6 +215,7 @@
   "description": "Platform perjodohan yang sudah jadi dan live: pendaftaran mandiri, pencocokan 3 lapis, kenalan bertahap yang sopan, dan pendampingan psikolog serta matchmaker — untuk semua usia 19–90 tahun.",
   "video": "assets/jodohin/jodohin-video.mp4",
   "poster": "assets/jodohin/jodohin-video-poster.jpg",
+  "thumb": "assets/products/jodohin.webp",
   "videoCaption": "Video aplikasi JODOHIN",
   "slides": [
    {

@@ -277,3 +277,10 @@ dialog p{margin:10px 0 0;text-align:center;font-size:.9rem;color:#c4cad4}
 .jod-phone video{width:100%;aspect-ratio:480/1068;object-fit:cover;border-radius:36px;display:block;background:#000}
 .jod-phone::after{content:'';position:absolute;top:22px;left:50%;transform:translateX(-50%);width:96px;height:26px;background:#000;border-radius:13px;z-index:2}
 .jod-phone::before{content:'';position:absolute;right:-3px;top:140px;width:4px;height:64px;background:#2a2a2e;border-radius:2px}
+
+/* Thumbnail JODOHIN di sebelah video (space kecil) */
+.jod-video{max-width:560px}
+.jod-media{display:flex;gap:12px;align-items:flex-start;justify-content:center}
+.jod-media .jod-phone{margin:0;flex:1 1 auto;max-width:320px}
+.jod-thumb{flex:0 0 110px;width:110px;border-radius:16px;box-shadow:0 10px 24px rgba(42,30,46,.25)}
+@media(min-width:768px){.jod-thumb{flex-basis:200px;width:200px}}

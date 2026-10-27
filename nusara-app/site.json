@@ -5,8 +5,6 @@
   "tagline": "AI FOR WORK BY CHANDRA WITH AI-ASSISTED AGENTS",
   "footerLine": "Building practical AI solutions for creativity, productivity, and business.",
   "logoImage": null,
-  "bumperVideo": "assets/video/nusara-bumper.mp4",
-  "bumperPoster": "assets/video/nusara-bumper-poster.webp",
   "seoTitle": "NUSARA — AI Tools, AI Studio & Digital Solutions",
   "seoDescription": "NUSARA: generator gambar dan video AI dari prompt atau foto, produksi video AI oleh NUSARA Studio, serta tools dan layanan digital berbasis AI agents oleh NUSARA Digital."
  },
@@ -96,15 +94,9 @@
   ],
   "showcase": [
    {
-    "type": "video",
-    "src": "assets/video/nusara-bumper.mp4",
-    "poster": "assets/video/nusara-bumper-poster.webp",
-    "caption": "Bumper NUSARA (contoh karya)"
-   },
-   {
     "type": "image",
-    "src": "assets/studio/video-sinematik.webp",
-    "caption": "Video AI sinematik dan iklan produk"
+    "src": "assets/products/jodohin.webp",
+    "caption": "JODOHIN — Platform Biro Jodoh Modern"
    }
   ]
  },
@@ -221,5 +213,52 @@
    "thumbnail": "assets/products/video-iklan.webp",
    "whatsappTopic": "Produksi Video AI"
   }
- ]
+ ],
+ "jodohin": {
+  "eyebrow": "Produk Unggulan — Platform Biro Jodoh Modern",
+  "title": "Untung 125juta/bulan!?",
+  "highlight": "125juta/bulan",
+  "subtitle": "Jasa biro jodoh automation modern — Platform JODOHIN",
+  "description": "Platform perjodohan yang sudah jadi dan live: pendaftaran mandiri, pencocokan 3 lapis, kenalan bertahap yang sopan, dan pendampingan psikolog serta matchmaker — untuk semua usia 19–90 tahun.",
+  "video": "assets/jodohin/jodohin-video.mp4",
+  "poster": "assets/jodohin/jodohin-video-poster.jpg",
+  "videoCaption": "Video aplikasi JODOHIN",
+  "slides": [
+   {
+    "src": "assets/jodohin/slides/slide-1-hero.jpg",
+    "caption": "Beranda"
+   },
+   {
+    "src": "assets/jodohin/slides/slide-2-semua-usia.jpg",
+    "caption": "Untuk semua usia dan kalangan"
+   },
+   {
+    "src": "assets/jodohin/slides/slide-3-kenapa-jodohin.jpg",
+    "caption": "Kenapa JODOHIN?"
+   },
+   {
+    "src": "assets/jodohin/slides/slide-4-kenapa-beda.jpg",
+    "caption": "Kenapa terasa beda"
+   },
+   {
+    "src": "assets/jodohin/slides/slide-5-cara-kerja.jpg",
+    "caption": "Cara kerjanya"
+   },
+   {
+    "src": "assets/jodohin/slides/slide-6-paket.jpg",
+    "caption": "Pilihan paket & harga"
+   },
+   {
+    "src": "assets/jodohin/slides/slide-7-data-dijaga.jpg",
+    "caption": "Datamu dijaga"
+   },
+   {
+    "src": "assets/jodohin/slides/slide-8-faq.jpg",
+    "caption": "Pertanyaan yang sering muncul"
+   }
+  ],
+  "siteUrl": "https://jodohin.onrender.com",
+  "proposal": "assets/jodohin/proposal-investor-jodohin.pdf",
+  "buyMessage": "Halo Admin NUSARA, saya minat beli Platform JODOHIN. Mohon informasinya."
+ }
 }

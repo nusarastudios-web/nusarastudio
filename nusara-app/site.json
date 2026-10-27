@@ -1,166 +1,225 @@
 {
-  "_readme": "Satu-satunya file yang perlu diedit untuk memperbarui konten publik NUSARA. Isi 'null' pada link = tombol otomatis tampil nonaktif (tidak seolah-olah aktif). Jangan taruh API key di sini; file ini dikirim ke browser.",
-  "brand": {
-    "name": "NUSARA",
-    "tagline": "AI FOR WORK BY CHANDRA WITH AI-ASSISTED AGENTS",
-    "footerLine": "Building practical AI solutions for creativity, productivity, and business.",
-    "logoImage": null,
-    "bumperVideo": "assets/video/nusara-bumper.mp4",
-    "bumperPoster": "assets/video/nusara-bumper-poster.webp",
-    "seoTitle": "NUSARA — AI Tools, AI Studio & Digital Solutions",
-    "seoDescription": "NUSARA: generator gambar dan video AI dari prompt atau foto, produksi video AI oleh NUSARA Studio, serta tools dan layanan digital berbasis AI agents oleh NUSARA Digital."
-  },
-  "contact": {
-    "whatsappNumber": "6287720051808",
-    "whatsappDisplay": "0877-2005-1808",
-    "defaultMessage": "Halo Admin NUSARA, saya tertarik untuk berdiskusi mengenai layanan AI NUSARA. Mohon informasi lebih lanjut.",
-    "topics": [
-      { "id": "agent", "label": "AI Agent Setup" },
-      { "id": "video", "label": "Produksi Video AI" },
-      { "id": "tools", "label": "Pengembangan AI Tools" },
-      { "id": "automation", "label": "Automation untuk Bisnis" },
-      { "id": "other", "label": "Kerja Sama dan Proyek Lainnya" }
-    ]
-  },
-  "social": {
-    "creator": {
-      "instagram": { "label": "Instagram @sobatjejakalam", "url": "https://www.instagram.com/sobatjejakalam/" },
-      "tiktok": { "label": "TikTok @sobatjejakalam", "url": "https://www.tiktok.com/@sobatjejakalam" }
-    },
-    "business": {
-      "instagram": { "label": "Instagram NUSARA Studio", "url": "https://www.instagram.com/nusarastudio/" },
-      "tiktok": { "label": "TikTok NUSARA Digital", "url": "https://www.tiktok.com/@nusaradigital" }
-    }
-  },
-  "marketplace": [
-    { "label": "Fastwork", "url": "https://fastwork.com/user/fg4rkt" },
-    { "label": "Lynk ID", "url": "https://lynk.id/nusarastudio" }
-  ],
-  "founder": {
-    "name": "Chandra Kurnia Wijaya",
-    "role": "Founder of NUSARA Studio AI & NUSARA Digital AI",
-    "photo": "assets/founder/founder.webp",
-    "bio": [
-      "Saya adalah AI enthusiast yang berfokus pada pengembangan konten visual berbasis AI, sistem kerja berbantuan AI agents, dan tools digital yang membantu pekerjaan menjadi lebih praktis dan efisien.",
-      "Melalui NUSARA, saya mengembangkan solusi AI yang menghubungkan kreativitas, teknologi, dan kebutuhan nyata di dunia kerja. Fokus saya bukan sekadar membuat konten dengan AI, tetapi juga merancang workflow dan produk digital yang dapat digunakan oleh kreator, UMKM, dan perusahaan."
-    ]
-  },
-  "studio": {
-    "title": "NUSARA Studio",
-    "tagline": "AI-Powered Visual Storytelling",
-    "description": [
-      "NUSARA Studio adalah usaha digital yang berfokus pada produksi video animasi dan video realistis berbasis AI dengan karakter yang konsisten.",
-      "Dengan dukungan workflow dan tim AI agents, NUSARA Studio mengembangkan video iklan, konten promosi, dan kebutuhan visual untuk content creator maupun bisnis.",
-      "Layanan mencakup pengembangan ide cerita, desain karakter, penyusunan prompt visual, perencanaan pergerakan kamera, dan produksi video berbasis AI."
-    ],
-    "services": [
-      "AI Animation Video",
-      "Realistic AI Video",
-      "AI Advertising Video",
-      "Social Media Content",
-      "Consistent Character Production",
-      "AI Visual Storytelling"
-    ],
-    "showcase": [
-      { "type": "video", "src": "assets/video/nusara-bumper.mp4", "poster": "assets/video/nusara-bumper-poster.webp", "caption": "Bumper NUSARA (contoh karya)" },
-      { "type": "image", "src": "assets/studio/video-sinematik.webp", "caption": "Video AI sinematik dan iklan produk" }
-    ]
-  },
-  "digital": {
-    "title": "NUSARA Digital",
-    "tagline": "Practical AI Tools for Everyday Work",
-    "description": [
-      "NUSARA Digital adalah usaha digital yang berfokus pada pengembangan tools dan sistem kerja berbasis AI untuk membantu UMKM, perusahaan, profesional, dan pengguna pribadi.",
-      "Melalui pendekatan AI agents, automation, dan pengembangan aplikasi digital, NUSARA Digital merancang solusi untuk menyederhanakan pekerjaan, mengurangi proses manual yang berulang, dan mendukung produktivitas."
-    ],
-    "services": [
-      "AI Agent Setup",
-      "AI Business Automation",
-      "AI Tools Development",
-      "Digital Workflow Design",
-      "AI Solutions for UMKM",
-      "Custom AI Applications"
-    ]
-  },
-  "certifications": [
-    {
-      "name": "AI untuk Profesional Bisnis",
-      "issuer": "HP LIFE Foundation",
-      "issuerNote": "Ditandatangani Michele Malejki, Executive Director, HP Foundation, sesuai informasi pada sertifikat.",
-      "serial": "7FC9B32D-1CD0-4835-A509-30EE583BA25D",
-      "date": "17 Juli 2026",
-      "thumb": "assets/certs/hp-ai-business-thumb.webp",
-      "image": "assets/certs/hp-ai-business.webp",
-      "alt": "Sertifikat HP LIFE: AI untuk Profesional Bisnis, atas nama Chandra Kurnia Wijaya"
-    },
-    {
-      "name": "AI Pengantar untuk Pemahaman Keamanan Siber",
-      "issuer": "HP LIFE Foundation",
-      "issuerNote": "Ditandatangani Michele Malejki, Executive Director, HP Foundation, sesuai informasi pada sertifikat.",
-      "serial": "D698B939-1F86-4278-88FF-F7293F8B7F1D",
-      "date": "18 Juli 2026",
-      "thumb": "assets/certs/hp-cyber-thumb.webp",
-      "image": "assets/certs/hp-cyber.webp",
-      "alt": "Sertifikat HP LIFE: Pengantar untuk Pemahaman Keamanan Siber, atas nama Chandra Kurnia Wijaya"
-    },
-    {
-      "name": "Menghasilkan Prompt yang Efektif untuk AI",
-      "issuer": "IBM SkillsBuild",
-      "issuerNote": "Dicatat melalui Adobe Learning Manager; 4 jam 40 menit belajar.",
-      "serial": "ALM-COURSE_4068816",
-      "date": "18 Juli 2026",
-      "thumb": "assets/certs/ibm-prompt-thumb.webp",
-      "image": "assets/certs/ibm-prompt.webp",
-      "alt": "Sertifikat IBM SkillsBuild: Menghasilkan Prompt yang Efektif untuk AI, atas nama Chandra Kurnia Wijaya"
-    }
-  ],
-  "achievement": {
-    "title": "Juara 3 KREAFEST POLDA JATIM 2026",
-    "category": "Umum — Tingkat Jawa Timur",
-    "theme": "AI FOR PUBLIC SAFETY",
-    "label": "Regional Achievement — East Java, Indonesia",
-    "description": "Meraih Juara 3 pada kompetisi video AI tingkat Jawa Timur dalam KREAFEST POLDA JATIM 2026 melalui karya bertema AI FOR PUBLIC SAFETY.",
-    "images": [
-      { "thumb": "assets/achievement/kreafest-trophy-thumb.webp", "image": "assets/achievement/kreafest-trophy.webp", "alt": "Piala Juara 3 Kategori Umum AI Video Competition KREAFEST POLDA JATIM 2026" },
-      { "thumb": "assets/achievement/kreafest-certificate-thumb.webp", "image": "assets/achievement/kreafest-certificate.webp", "alt": "Sertifikat Penghargaan Juara 3 Kategori Umum AI Video Competition KREAFEST POLDA JATIM 2026 atas nama Chandra Kurnia Wijaya" }
-    ]
-  },
-  "products": [
-    {
-      "id": "catatin",
-      "name": "CATATIN",
-      "category": "AI Tools for UMKM",
-      "description": "Produk digital untuk membantu pelaku usaha mencatat dan mengelola aktivitas usaha dengan cara yang lebih praktis.",
-      "cta": "Lihat Produk",
-      "thumbnail": "assets/products/catatin.webp",
-      "url": "https://lynk.id/nusarastudio/6q4dpz45yk84"
-    },
-    {
-      "id": "untungin",
-      "name": "UNTUNGIN",
-      "category": "AI Business Tools",
-      "description": "Aplikasi pencatatan keuntungan usaha dengan pengalaman penggunaan yang praktis, termasuk dukungan interaksi suara jika tersedia pada versi produk.",
-      "cta": "Coba Untungin",
-      "thumbnail": "assets/products/untungin.webp",
-      "url": "https://lynk.id/nusarastudio/e291g8yd2wkv"
-    },
-    {
-      "id": "agent-setup",
-      "name": "AI AGENT SETUP",
-      "category": "AI Automation Services",
-      "description": "Layanan setup sistem kerja berbasis AI agents untuk mendukung workflow, pembuatan konten, dan proses kerja digital sesuai kebutuhan bisnis.",
-      "cta": "Konsultasi AI Agent",
-      "thumbnail": "assets/products/ai-agent-setup.webp",
-      "whatsappTopic": "AI Agent Setup"
-    },
-    {
-      "id": "video-iklan",
-      "name": "JASA VIDEO IKLAN AI",
-      "category": "AI Video Production",
-      "description": "Layanan produksi video iklan berbasis AI untuk promosi produk, UMKM, brand, dan kebutuhan konten digital.",
-      "cta": "Pesan Video Iklan",
-      "thumbnail": "assets/products/video-iklan.webp",
-      "whatsappTopic": "Produksi Video AI"
-    }
+ "_readme": "Satu-satunya file yang perlu diedit untuk memperbarui konten publik NUSARA. Isi 'null' pada link = tombol otomatis tampil nonaktif (tidak seolah-olah aktif). Jangan taruh API key di sini; file ini dikirim ke browser.",
+ "brand": {
+  "name": "NUSARA",
+  "tagline": "AI FOR WORK BY CHANDRA WITH AI-ASSISTED AGENTS",
+  "footerLine": "Building practical AI solutions for creativity, productivity, and business.",
+  "logoImage": null,
+  "bumperVideo": "assets/video/nusara-bumper.mp4",
+  "bumperPoster": "assets/video/nusara-bumper-poster.webp",
+  "seoTitle": "NUSARA — AI Tools, AI Studio & Digital Solutions",
+  "seoDescription": "NUSARA: generator gambar dan video AI dari prompt atau foto, produksi video AI oleh NUSARA Studio, serta tools dan layanan digital berbasis AI agents oleh NUSARA Digital."
+ },
+ "contact": {
+  "whatsappNumber": "6287720051808",
+  "whatsappDisplay": "0877-2005-1808",
+  "defaultMessage": "Halo Admin NUSARA, saya tertarik untuk berdiskusi mengenai layanan AI NUSARA. Mohon informasi lebih lanjut.",
+  "topics": [
+   {
+    "id": "agent",
+    "label": "AI Agent Setup"
+   },
+   {
+    "id": "video",
+    "label": "Produksi Video AI"
+   },
+   {
+    "id": "tools",
+    "label": "Pengembangan AI Tools"
+   },
+   {
+    "id": "automation",
+    "label": "Automation untuk Bisnis"
+   },
+   {
+    "id": "other",
+    "label": "Kerja Sama dan Proyek Lainnya"
+   }
   ]
+ },
+ "social": {
+  "creator": {
+   "instagram": {
+    "label": "Instagram @sobatjejakalam",
+    "url": "https://www.instagram.com/sobatjejakalam/"
+   },
+   "tiktok": {
+    "label": "TikTok @sobatjejakalam",
+    "url": "https://www.tiktok.com/@sobatjejakalam"
+   }
+  },
+  "business": {
+   "instagram": {
+    "label": "Instagram NUSARA Studio",
+    "url": "https://www.instagram.com/nusarastudio/"
+   },
+   "tiktok": {
+    "label": "TikTok NUSARA Digital",
+    "url": "https://www.tiktok.com/@nusaradigital"
+   }
+  }
+ },
+ "marketplace": [
+  {
+   "label": "Fastwork",
+   "url": "https://fastwork.com/user/fg4rkt"
+  },
+  {
+   "label": "Lynk ID",
+   "url": "https://lynk.id/nusarastudio"
+  }
+ ],
+ "founder": {
+  "name": "Chandra Kurnia Wijaya",
+  "role": "Founder of NUSARA Studio AI & NUSARA Digital AI",
+  "photo": "assets/founder/founder.webp",
+  "bio": [
+   "Saya adalah AI enthusiast yang berfokus pada pengembangan konten visual berbasis AI, sistem kerja berbantuan AI agents, dan tools digital yang membantu pekerjaan menjadi lebih praktis dan efisien.",
+   "Melalui NUSARA, saya mengembangkan solusi AI yang menghubungkan kreativitas, teknologi, dan kebutuhan nyata di dunia kerja. Fokus saya bukan sekadar membuat konten dengan AI, tetapi juga merancang workflow dan produk digital yang dapat digunakan oleh kreator, UMKM, dan perusahaan."
+  ]
+ },
+ "studio": {
+  "title": "NUSARA Studio",
+  "tagline": "AI-Powered Visual Storytelling",
+  "description": [
+   "NUSARA Studio adalah usaha digital yang berfokus pada produksi video animasi dan video realistis berbasis AI dengan karakter yang konsisten.",
+   "Dengan dukungan workflow dan tim AI agents, NUSARA Studio mengembangkan video iklan, konten promosi, dan kebutuhan visual untuk content creator maupun bisnis.",
+   "Layanan mencakup pengembangan ide cerita, desain karakter, penyusunan prompt visual, perencanaan pergerakan kamera, dan produksi video berbasis AI."
+  ],
+  "services": [
+   "AI Animation Video",
+   "Realistic AI Video",
+   "AI Advertising Video",
+   "Social Media Content",
+   "Consistent Character Production",
+   "AI Visual Storytelling"
+  ],
+  "showcase": [
+   {
+    "type": "video",
+    "src": "assets/video/nusara-bumper.mp4",
+    "poster": "assets/video/nusara-bumper-poster.webp",
+    "caption": "Bumper NUSARA (contoh karya)"
+   },
+   {
+    "type": "image",
+    "src": "assets/studio/video-sinematik.webp",
+    "caption": "Video AI sinematik dan iklan produk"
+   }
+  ]
+ },
+ "digital": {
+  "title": "NUSARA Digital",
+  "tagline": "Practical AI Tools for Everyday Work",
+  "description": [
+   "NUSARA Digital adalah usaha digital yang berfokus pada pengembangan tools dan sistem kerja berbasis AI untuk membantu UMKM, perusahaan, profesional, dan pengguna pribadi.",
+   "Melalui pendekatan AI agents, automation, dan pengembangan aplikasi digital, NUSARA Digital merancang solusi untuk menyederhanakan pekerjaan, mengurangi proses manual yang berulang, dan mendukung produktivitas."
+  ],
+  "services": [
+   "AI Agent Setup",
+   "AI Business Automation",
+   "AI Tools Development",
+   "Digital Workflow Design",
+   "AI Solutions for UMKM",
+   "Custom AI Applications"
+  ]
+ },
+ "certifications": [
+  {
+   "name": "AI untuk Profesional Bisnis",
+   "issuer": "HP LIFE Foundation",
+   "issuerNote": "Ditandatangani Michele Malejki, Executive Director, HP Foundation, sesuai informasi pada sertifikat.",
+   "serial": "7FC9B32D-1CD0-4835-A509-30EE583BA25D",
+   "date": "17 Juli 2026",
+   "thumb": "assets/certs/hp-ai-business-thumb.webp",
+   "image": "assets/certs/hp-ai-business.webp",
+   "alt": "Sertifikat HP LIFE: AI untuk Profesional Bisnis, atas nama Chandra Kurnia Wijaya"
+  },
+  {
+   "name": "AI Pengantar untuk Pemahaman Keamanan Siber",
+   "issuer": "HP LIFE Foundation",
+   "issuerNote": "Ditandatangani Michele Malejki, Executive Director, HP Foundation, sesuai informasi pada sertifikat.",
+   "serial": "D698B939-1F86-4278-88FF-F7293F8B7F1D",
+   "date": "18 Juli 2026",
+   "thumb": "assets/certs/hp-cyber-thumb.webp",
+   "image": "assets/certs/hp-cyber.webp",
+   "alt": "Sertifikat HP LIFE: Pengantar untuk Pemahaman Keamanan Siber, atas nama Chandra Kurnia Wijaya"
+  },
+  {
+   "name": "Menghasilkan Prompt yang Efektif untuk AI",
+   "issuer": "IBM SkillsBuild",
+   "issuerNote": "Dicatat melalui Adobe Learning Manager; 4 jam 40 menit belajar.",
+   "serial": "ALM-COURSE_4068816",
+   "date": "18 Juli 2026",
+   "thumb": "assets/certs/ibm-prompt-thumb.webp",
+   "image": "assets/certs/ibm-prompt.webp",
+   "alt": "Sertifikat IBM SkillsBuild: Menghasilkan Prompt yang Efektif untuk AI, atas nama Chandra Kurnia Wijaya"
+  }
+ ],
+ "achievement": {
+  "title": "Juara 3 KREAFEST POLDA JATIM 2026",
+  "category": "Umum — Tingkat Jawa Timur",
+  "theme": "AI FOR PUBLIC SAFETY",
+  "label": "Regional Achievement — East Java, Indonesia",
+  "description": "Meraih Juara 3 pada kompetisi video AI tingkat Jawa Timur dalam KREAFEST POLDA JATIM 2026 melalui karya bertema AI FOR PUBLIC SAFETY.",
+  "images": [
+   {
+    "thumb": "assets/achievement/kreafest-trophy-thumb.webp",
+    "image": "assets/achievement/kreafest-trophy.webp",
+    "alt": "Piala Juara 3 Kategori Umum AI Video Competition KREAFEST POLDA JATIM 2026"
+   },
+   {
+    "thumb": "assets/achievement/kreafest-certificate-thumb.webp",
+    "image": "assets/achievement/kreafest-certificate.webp",
+    "alt": "Sertifikat Penghargaan Juara 3 Kategori Umum AI Video Competition KREAFEST POLDA JATIM 2026 atas nama Chandra Kurnia Wijaya"
+   }
+  ]
+ },
+ "products": [
+  {
+   "id": "jodohin",
+   "name": "JODOHIN",
+   "category": "AI Matchmaking Platform",
+   "description": "Platform perjodohan aman dan serius untuk semua usia 19–90 tahun — pencocokan 3 lapis, kenalan bertahap yang sopan, dan pendampingan psikolog serta matchmaker.",
+   "cta": "Coba JODOHIN",
+   "thumbnail": "assets/products/jodohin.webp",
+   "url": "https://jodohin.onrender.com"
+  },
+  {
+   "id": "catatin",
+   "name": "CATATIN",
+   "category": "AI Tools for UMKM",
+   "description": "Produk digital untuk membantu pelaku usaha mencatat dan mengelola aktivitas usaha dengan cara yang lebih praktis.",
+   "cta": "Lihat Produk",
+   "thumbnail": "assets/products/catatin.webp",
+   "url": "https://lynk.id/nusarastudio/6q4dpz45yk84"
+  },
+  {
+   "id": "untungin",
+   "name": "UNTUNGIN",
+   "category": "AI Business Tools",
+   "description": "Aplikasi pencatatan keuntungan usaha dengan pengalaman penggunaan yang praktis, termasuk dukungan interaksi suara jika tersedia pada versi produk.",
+   "cta": "Coba Untungin",
+   "thumbnail": "assets/products/untungin.webp",
+   "url": "https://lynk.id/nusarastudio/e291g8yd2wkv"
+  },
+  {
+   "id": "agent-setup",
+   "name": "AI AGENT SETUP",
+   "category": "AI Automation Services",
+   "description": "Layanan setup sistem kerja berbasis AI agents untuk mendukung workflow, pembuatan konten, dan proses kerja digital sesuai kebutuhan bisnis.",
+   "cta": "Konsultasi AI Agent",
+   "thumbnail": "assets/products/ai-agent-setup.webp",
+   "whatsappTopic": "AI Agent Setup"
+  },
+  {
+   "id": "video-iklan",
+   "name": "JASA VIDEO IKLAN AI",
+   "category": "AI Video Production",
+   "description": "Layanan produksi video iklan berbasis AI untuk promosi produk, UMKM, brand, dan kebutuhan konten digital.",
+   "cta": "Pesan Video Iklan",
+   "thumbnail": "assets/products/video-iklan.webp",
+   "whatsappTopic": "Produksi Video AI"
+  }
+ ]
 }

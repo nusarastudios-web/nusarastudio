@@ -255,3 +255,19 @@ dialog p{margin:10px 0 0;text-align:center;font-size:.9rem;color:#c4cad4}
 .port>article:last-child .btn.is-off{border-color:#8791a0;color:#d3d8e0}
 .ach>div:first-child{padding-top:8px}
 .showcase img{margin-top:18px}
+
+/* JODOHIN showcase (di atas Sertifikat) — mobile-first */
+#jodohin{background:#FDF7F2;color:#2A1E2E}
+.jod-eyebrow{display:inline-block;background:#F9EAF2;color:#C8087A;font-weight:700;font-size:.8rem;padding:6px 12px;border-radius:999px}
+#jodohin-root h2{font-size:2rem;line-height:1.15;margin:14px 0 8px}
+#jodohin-root h2 .grad{background:linear-gradient(90deg,#C8087A,#E9A13B);-webkit-background-clip:text;background-clip:text;color:transparent}
+.jod-sub{font-size:1.05rem;font-weight:600}
+.jod-video{margin:20px auto;max-width:360px}
+.jod-video video{width:100%;border-radius:20px;background:#000;display:block}
+.jod-video figcaption{font-size:.82rem;color:#6b7280;margin-top:6px;text-align:center}
+.jod-slides{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 12px;margin-top:22px}
+.jod-slide{flex:0 0 78%;scroll-snap-align:start;margin:0}
+.jod-slide img{width:100%;border-radius:16px;display:block;box-shadow:0 4px 18px rgba(42,30,46,.12)}
+.jod-slide figcaption{font-size:.82rem;color:#6b7280;margin-top:6px}
+#jodohin-root .row{flex-wrap:wrap}
+@media (min-width:768px){#jodohin-root h2{font-size:2.6rem}.jod-slide{flex-basis:42%}}

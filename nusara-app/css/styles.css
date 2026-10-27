@@ -271,3 +271,9 @@ dialog p{margin:10px 0 0;text-align:center;font-size:.9rem;color:#c4cad4}
 .jod-slide figcaption{font-size:.82rem;color:#6b7280;margin-top:6px}
 #jodohin-root .row{flex-wrap:wrap}
 @media (min-width:768px){#jodohin-root h2{font-size:2.6rem}.jod-slide{flex-basis:42%}}
+
+/* Bingkai HP untuk video JODOHIN */
+.jod-phone{position:relative;width:min(320px,84vw);margin:0 auto;padding:12px;box-sizing:border-box;background:#0f0f12;border-radius:48px;box-shadow:0 24px 48px rgba(42,30,46,.35),inset 0 0 0 2px #2e2e33}
+.jod-phone video{width:100%;aspect-ratio:480/1068;object-fit:cover;border-radius:36px;display:block;background:#000}
+.jod-phone::after{content:'';position:absolute;top:22px;left:50%;transform:translateX(-50%);width:96px;height:26px;background:#000;border-radius:13px;z-index:2}
+.jod-phone::before{content:'';position:absolute;right:-3px;top:140px;width:4px;height:64px;background:#2a2a2e;border-radius:2px}

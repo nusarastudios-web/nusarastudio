@@ -68,8 +68,10 @@ function render() {
     h('p', { class: 'jod-sub' }, j.subtitle),
     h('p', {}, j.description),
     h('figure', { class: 'jod-video' },
-      h('div', { class: 'jod-phone' },
-        h('video', { controls: true, muted: true, preload: 'none', poster: j.poster, playsinline: true }, h('source', { src: j.video, type: 'video/mp4' }))),
+      h('div', { class: 'jod-media' },
+        h('div', { class: 'jod-phone' },
+          h('video', { controls: true, muted: true, preload: 'none', poster: j.poster, playsinline: true }, h('source', { src: j.video, type: 'video/mp4' }))),
+        h('img', { class: 'jod-thumb', src: j.thumb, alt: 'Thumbnail JODOHIN', loading: 'lazy' })),
       h('figcaption', {}, j.videoCaption)),
     h('div', { class: 'jod-slides' }, j.slides.map((s) =>
       h('figure', { class: 'jod-slide' }, h('img', { src: s.src, alt: s.caption, loading: 'lazy' }), h('figcaption', {}, s.caption)))),

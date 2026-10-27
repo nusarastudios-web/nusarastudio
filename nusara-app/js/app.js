@@ -68,7 +68,8 @@ function render() {
     h('p', { class: 'jod-sub' }, j.subtitle),
     h('p', {}, j.description),
     h('figure', { class: 'jod-video' },
-      h('video', { controls: true, muted: true, preload: 'none', poster: j.poster, playsinline: true }, h('source', { src: j.video, type: 'video/mp4' })),
+      h('div', { class: 'jod-phone' },
+        h('video', { controls: true, muted: true, preload: 'none', poster: j.poster, playsinline: true }, h('source', { src: j.video, type: 'video/mp4' }))),
       h('figcaption', {}, j.videoCaption)),
     h('div', { class: 'jod-slides' }, j.slides.map((s) =>
       h('figure', { class: 'jod-slide' }, h('img', { src: s.src, alt: s.caption, loading: 'lazy' }), h('figcaption', {}, s.caption)))),
@@ -81,6 +82,26 @@ function render() {
   if (jv && 'IntersectionObserver' in window) {
     const io = new IntersectionObserver((es) => { es.forEach((e) => { if (e.isIntersecting) { jv.play().catch(() => {}); io.disconnect(); } }); }, { threshold: 0.5 });
     io.observe(jv);
+  }
+  // Slide JODOHIN geser otomatis tiap 3,5 detik; jeda saat disentuh/di-hover
+  const strip = document.querySelector('.jod-slides');
+  if (strip) {
+    let auto = true, timer = null;
+    const step = () => {
+      const w = strip.firstElementChild ? strip.firstElementChild.getBoundingClientRect().width + 12 : 300;
+      if (strip.scrollLeft + strip.clientWidth >= strip.scrollWidth - 10) strip.scrollTo({ left: 0, behavior: 'smooth' });
+      else strip.scrollBy({ left: w, behavior: 'smooth' });
+    };
+    const start = () => { if (!timer) timer = setInterval(() => { if (auto) step(); }, 3500); };
+    const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
+    strip.addEventListener('pointerdown', () => { auto = false; stop(); });
+    strip.addEventListener('pointerup', () => { setTimeout(() => { auto = true; start(); }, 5000); });
+    strip.addEventListener('mouseenter', () => { auto = false; });
+    strip.addEventListener('mouseleave', () => { auto = true; });
+    if ('IntersectionObserver' in window) {
+      const io2 = new IntersectionObserver((es) => { es.forEach((e) => { if (e.isIntersecting) start(); else stop(); }); }, { threshold: 0.3 });
+      io2.observe(strip);
+    } else start();
   }
 
   // Certifications

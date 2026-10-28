@@ -34,6 +34,28 @@ const images = new Map();  // id -> { fileId, providerUrl, createdAt }
 const videoJobs = new Map(); // jobId -> { falId, status, fileUrl, message }
 const usage = new Map();   // ip -> { images: [ts], videos: [ts] }
 
+// Buku tamu situs: hitungan kunjungan per hari (tayang + pengunjung unik).
+// Hanya browser asli yang menjalankan JS yang mengirim beacon; ping penjaga,
+// bot, dan curl tidak terhitung. Data hidup di memori saja — restart Render
+// mengosongkan hitungan (lihat field `since` di /api/stats).
+const visits = new Map(); // day(WIB) -> { views, uniques:Set<hash>, lastSeen:Map<ip,ts> }
+const visitsStartedAt = Date.now();
+const wibDay = (ts = Date.now()) => new Date(ts + 7 * 3600 * 1000).toISOString().slice(0, 10);
+function recordVisit(req) {
+  const ua = String(req.headers['user-agent'] || '');
+  if (!ua.includes('Mozilla')) return; // bukan browser: ping/bot/curl tidak dihitung
+  const ip = clientIp(req);
+  const now = Date.now();
+  const day = wibDay(now);
+  let rec = visits.get(day);
+  if (!rec) { rec = { views: 0, uniques: new Set(), lastSeen: new Map() }; visits.set(day, rec); }
+  if (now - (rec.lastSeen.get(ip) || 0) < 10 * 1000) return; // kirim ganda tidak dihitung dua kali
+  rec.lastSeen.set(ip, now);
+  rec.views += 1;
+  rec.uniques.add(crypto.createHash('sha256').update(ip + '|' + day).digest('hex'));
+  if (visits.size > 40) for (const d of [...visits.keys()]) if (d < wibDay(now - 30 * 86400 * 1000)) visits.delete(d);
+}
+
 function clientIp(req) {
   if (TRUST_PROXY) {
     const fwd = req.headers['x-forwarded-for'];
@@ -260,6 +282,21 @@ const server = http.createServer(async (req, res) => {
     if (p === '/api/video' && req.method === 'POST') return handleVideo(req, res);
     if (p.startsWith('/api/video/') && req.method === 'GET') {
       return handleVideoStatus(req, res, decodeURIComponent(p.slice('/api/video/'.length)));
+    }
+    if (p === '/api/visit' && req.method === 'POST') {
+      await readBody(req, 1024).catch(() => null); // kuras body kecil beacon
+      recordVisit(req);
+      return sendJson(res, 200, { ok: true });
+    }
+    if (p === '/api/stats' && req.method === 'GET') {
+      const days = Math.min(30, Math.max(1, parseInt(u.searchParams.get('days') || '30', 10) || 30));
+      const out = [];
+      for (let i = days - 1; i >= 0; i--) {
+        const day = wibDay(Date.now() - i * 86400 * 1000);
+        const rec = visits.get(day);
+        out.push({ date: day, views: rec ? rec.views : 0, visitors: rec ? rec.uniques.size : 0 });
+      }
+      return sendJson(res, 200, { since: new Date(visitsStartedAt).toISOString(), note: 'Hitungan mulai dari server start; restart Render mengosongkan hitungan.', days: out });
     }
     // File statis
     let filePath = p === '/' ? '/index.html' : p;

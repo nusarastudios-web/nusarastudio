@@ -147,6 +147,12 @@ function renderContent() {
 // Interaktif — selalu jalan (hasil prerender maupun render ulang).
 function initInteractive() {
   $('#year').textContent = new Date().getFullYear();
+  // Buku tamu: hitung kunjungan sekali per buka halaman (hanya browser asli).
+  try {
+    const payload = JSON.stringify({ path: location.pathname });
+    if (navigator.sendBeacon) navigator.sendBeacon('/api/visit', new Blob([payload], { type: 'application/json' }));
+    else fetch('/api/visit', { method: 'POST', keepalive: true, headers: { 'Content-Type': 'application/json' }, body: payload }).catch(() => {});
+  } catch {}
   // Form WA: wiring lewat query agar jalan untuk konten prerender juga.
   const fs = $('#contact-root .topics');
   if (cfg && fs) {

@@ -107,10 +107,10 @@ function readBody(req, max) {
 }
 
 const STYLE_SUFFIX = {
-  realistic: ', photorealistic, highly detailed, natural lighting',
-  cinematic: ', cinematic lighting, dramatic composition, film still',
-  '3d': ', 3D animation style, soft studio lighting, high quality render',
-  illustration: ', detailed digital illustration, vibrant colors',
+  realistic: ', photorealistic, highly detailed, natural lighting, sharp focus, realistic textures, professional product photography, balanced composition',
+  cinematic: ', cinematic lighting, dramatic composition, film still, rich colors, depth of field, highly detailed, epic atmosphere',
+  '3d': ', 3D animation style, soft studio lighting, high quality render, detailed textures, smooth shading, vibrant colors',
+  illustration: ', detailed digital illustration, vibrant colors, clean lines, rich detail, polished artwork, expressive style',
 };
 const ASPECT_SIZE = { '1:1': [1024, 1024], '16:9': [1280, 720], '9:16': [720, 1280] };
 
@@ -122,6 +122,11 @@ function pollinationsUrl(prompt, { width, height, model, imageRef }) {
   u.searchParams.set('seed', String(Math.floor(Math.random() * 1e9)));
   u.searchParams.set('nologo', 'true');
   u.searchParams.set('private', 'true');
+  // Catatan (uji 28 Okt 2026): endpoint anonim MENGABAIKAN parameter model
+  // (flux/turbo/flux-realism menghasilkan berkas identik — selalu model
+  // default), enhance hampir tidak berpengaruh, dan kapasitas gratis bisa
+  // 503. Jadi perbaikan kualitas di jalur gratis hanya lewat prompt + retry.
+  u.searchParams.set('enhance', 'true');
   if (imageRef) u.searchParams.set('image', imageRef);
   if (POLLINATIONS_API_KEY) u.searchParams.set('key', POLLINATIONS_API_KEY);
   return u.toString();
@@ -157,9 +162,18 @@ async function handleImage(req, res) {
 
   const url = pollinationsUrl(fullPrompt, { width, height, model, imageRef });
   let r;
-  try { r = await fetch(url, { signal: AbortSignal.timeout(90000) }); }
+  const fetchOnce = () => fetch(url, { signal: AbortSignal.timeout(90000) });
+  try { r = await fetchOnce(); }
   catch { return sendErr(res, 502, 'Provider gambar tidak merespons. Coba lagi.'); }
+  if (r.status === 503) {
+    // Kapasitas gratis Pollinations sering penuh sesaat — coba ulang 1x
+    // sesudah 10 detik (sesuai pesan provider sendiri).
+    await new Promise((ok) => setTimeout(ok, 10 * 1000));
+    try { r = await fetchOnce(); }
+    catch { return sendErr(res, 502, 'Provider gambar tidak merespons. Coba lagi.'); }
+  }
   if (!r.ok) {
+    if (r.status === 503) return sendErr(res, 503, 'Server gambar gratis sedang penuh. Tunggu sebentar lalu coba lagi.', { retryable: true });
     const t = await r.text().catch(() => '');
     return sendErr(res, 502, `Provider gambar menolak permintaan (${r.status}). ${t.slice(0, 120)}`);
   }

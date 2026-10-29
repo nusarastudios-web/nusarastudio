@@ -22,6 +22,16 @@ const PUBLIC_BASE_URL = (process.env.PUBLIC_BASE_URL || '').replace(/\/$/, '');
 const TRUST_PROXY = process.env.TRUST_PROXY === '1';
 const POLLINATIONS_API_KEY = process.env.POLLINATIONS_API_KEY || '';
 const FAL_KEY = process.env.FAL_KEY || '';
+// Panel kontrol tahap 1: kata sandi panel dipasang Pak sendiri di env Render
+// (ADMIN_KEY). Tanpa ADMIN_KEY, panel gagal tertutup. Kunci tidak pernah
+// ditulis di repo/file — hanya dibandingkan hash-nya dengan cookie login.
+const ADMIN_KEY = process.env.ADMIN_KEY || '';
+function sha256(s) { return crypto.createHash('sha256').update(s).digest('hex'); }
+function adminAuthed(req) {
+  if (!ADMIN_KEY) return false;
+  const m = String(req.headers.cookie || '').match(/(?:^|;\s*)nusara_admin=([0-9a-f]{64})/);
+  return !!m && m[1] === sha256(ADMIN_KEY);
+}
 
 const ROOT = __dirname;
 const MAX_UPLOAD = 8 * 1024 * 1024;
@@ -311,6 +321,32 @@ const server = http.createServer(async (req, res) => {
         out.push({ date: day, views: rec ? rec.views : 0, visitors: rec ? rec.uniques.size : 0 });
       }
       return sendJson(res, 200, { since: new Date(visitsStartedAt).toISOString(), note: 'Hitungan mulai dari server start; restart Render mengosongkan hitungan.', days: out });
+    }
+    // Panel kontrol: login + gerbang /admin.html (tidak menyentuh situs publik).
+    if (p === '/api/admin/login' && req.method === 'POST') {
+      const body = await readBody(req, 4096).catch(() => null);
+      let key = '';
+      try { key = JSON.parse(String(body || '{}')).key || ''; } catch {}
+      if (ADMIN_KEY && key === ADMIN_KEY) {
+        res.writeHead(200, { 'Content-Type': 'application/json', 'Set-Cookie': `nusara_admin=${sha256(ADMIN_KEY)}; HttpOnly; Path=/; SameSite=Lax; Max-Age=${30 * 24 * 3600}` });
+        return res.end(JSON.stringify({ ok: true }));
+      }
+      return sendErr(res, 401, 'Kata sandi salah.');
+    }
+    if (p === '/api/admin/logout' && req.method === 'POST') {
+      res.writeHead(200, { 'Content-Type': 'application/json', 'Set-Cookie': 'nusara_admin=; HttpOnly; Path=/; SameSite=Lax; Max-Age=0' });
+      return res.end(JSON.stringify({ ok: true }));
+    }
+    if (p === '/admin.html') {
+      if (!ADMIN_KEY) {
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-cache' });
+        return res.end('<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kontrol NUSARA</title></head><body style="font-family:sans-serif;padding:24px"><h1>Panel belum diatur</h1><p>Pasang <b>ADMIN_KEY</b> di environment Render (service nusara), tunggu deploy selesai, lalu buka lagi halaman ini.</p></body></html>');
+      }
+      if (!adminAuthed(req)) {
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-cache' });
+        return res.end('<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Masuk — Kontrol NUSARA</title></head><body style="font-family:sans-serif;padding:24px;max-width:420px;margin:0 auto"><h1>Kontrol NUSARA</h1><p>Masukkan kata sandi panel (ADMIN_KEY yang dipasang di Render).</p><form id="f"><input id="k" type="password" autocomplete="current-password" style="width:100%;padding:12px;font-size:1rem"><p><button style="padding:12px 20px;font-size:1rem">Masuk</button></p><p id="e" style="color:#b00"></p></form><script>document.getElementById("f").addEventListener("submit",async(ev)=>{ev.preventDefault();const r=await fetch("/api/admin/login",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({key:document.getElementById("k").value})});if(r.ok)location.reload();else document.getElementById("e").textContent="Kata sandi salah.";});</script></body></html>');
+      }
+      // Lolos: lanjut ke blok file statis di bawah (admin.html disajikan).
     }
     // File statis
     let filePath = p === '/' ? '/index.html' : p;

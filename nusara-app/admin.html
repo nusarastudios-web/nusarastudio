@@ -1,0 +1,341 @@
+<!doctype html><html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kontrol NUSARA</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font:16px -apple-system,BlinkMacSystemFont,sans-serif;background:#f4f5f7;color:#111}
+header{background:#101827;color:#fff;padding:16px}header h1{margin:0;font-size:1.3rem}header p{margin:4px 0 0;opacity:.8;font-size:.9rem}
+.tabs{display:flex;gap:8px;padding:12px;overflow-x:auto;background:#fff;border-bottom:1px solid #ddd;position:sticky;top:0;z-index:5}
+.tabs button{flex:1;min-width:110px;padding:12px 8px;border:1px solid #ddd;border-radius:10px;background:#fff;font-size:1rem;cursor:pointer}
+.tabs button.on{background:#101827;color:#fff;border-color:#101827}
+main{padding:16px;max-width:900px;margin:0 auto}
+.card{background:#fff;border:1px solid #ddd;border-radius:12px;padding:16px;margin-bottom:16px}
+.card h2{margin:0 0 12px;font-size:1.15rem}.card h3{margin:20px 0 8px;font-size:1rem}
+label{display:block;margin:12px 0 4px;font-weight:600;font-size:.95rem}
+input[type=text],input[type=url],textarea{width:100%;padding:11px;border:1px solid #bbb;border-radius:8px;font-size:1rem;font-family:inherit}
+textarea{min-height:90px}input[type=file]{width:100%;margin:4px 0}
+small{color:#555}.cur{font-size:.85rem;color:#555;word-break:break-all}
+button.btn{background:#101827;color:#fff;border:0;border-radius:10px;padding:13px 18px;font-size:1rem;cursor:pointer}
+button.btn2{background:#fff;color:#111;border:1px solid #999;border-radius:10px;padding:11px 16px;font-size:1rem;cursor:pointer}
+button:disabled{opacity:.5}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.bignum{display:flex;gap:12px;flex-wrap:wrap}.bignum div{flex:1;min-width:140px;background:#eef2ff;border-radius:10px;padding:14px;text-align:center}
+.bignum b{font-size:1.8rem;display:block}
+.chart{display:flex;align-items:flex-end;gap:4px;height:120px;margin:12px 0}.chart div{flex:1;background:#2563eb;border-radius:4px 4px 0 0;min-height:2px}
+.chart span{font-size:.7rem;color:#555;text-align:center}
+table{width:100%;border-collapse:collapse;font-size:.95rem}th,td{border-bottom:1px solid #eee;padding:7px 4px;text-align:left}
+iframe#prev{width:100%;height:70vh;border:1px solid #999;border-radius:10px;background:#fff}
+.warn{background:#fff7e6;border:1px solid #f0c36d;border-radius:10px;padding:12px;margin-bottom:16px}
+.ok{background:#e8f7ee;border:1px solid #7cc79a;border-radius:10px;padding:12px;margin-bottom:16px}
+img.thumb{max-width:160px;max-height:120px;border:1px solid #ddd;border-radius:8px;display:block;margin-top:6px}
+.diff li{margin:6px 0}
+</style></head><body>
+<header><h1>🎛️ Kontrol NUSARA</h1><p>Monitor kunjungan &amp; ubah isi situs. Situs publik tidak berubah sampai Bapak kirim file tayang ke Bowo dan ketuk Izinkan.</p></header>
+<nav class="tabs">
+<button data-tab="monitor" class="on">📊 Monitor</button>
+<button data-tab="konten">✏️ Konten</button>
+<button data-tab="pratinjau">👀 Pratinjau</button>
+<button data-tab="tayang">🚀 Tayang</button>
+<button id="logoutBtn" title="Keluar dari panel">🚪 Keluar</button>
+</nav>
+<main>
+<section id="tab-monitor">
+<div class="card"><h2>📊 Kunjungan situs</h2>
+<div class="warn">Panel ini <b>tidak menambah</b> hitungan kunjungan. Hitungan mulai dari nol lagi setiap server Render restart (lihat baris “Sejak”).</div>
+<div class="bignum">
+<div><b id="m-today-views">–</b><span>Hari ini dibuka</span></div>
+<div><b id="m-today-vis">–</b><span>Pengunjung hari ini</span></div>
+<div><b id="m-30-views">–</b><span>Dibuka 30 hari</span></div>
+<div><b id="m-30-vis">–</b><span>Pengunjung 30 hari</span></div>
+</div>
+<p id="m-since" class="cur"></p>
+<div class="row"><button class="btn" id="m-reload">Muat ulang data</button><span id="m-status" class="cur"></span></div>
+<h3>Grafik 14 hari terakhir (dibuka)</h3><div class="chart" id="m-chart"></div>
+<h3>Per hari (30 hari)</h3><div style="overflow-x:auto"><table><thead><tr><th>Tanggal</th><th>Dibuka</th><th>Pengunjung</th></tr></thead><tbody id="m-rows"></tbody></table></div>
+</div>
+</section>
+
+<section id="tab-konten" hidden>
+<div class="card"><h2>✏️ Ubah konten</h2>
+<div id="load-status" class="cur">Memuat isi situs live…</div>
+<div class="warn" id="draft-note" hidden></div>
+<div class="row" style="margin:12px 0"><button class="btn" id="save-draft">💾 Simpan draf di HP ini</button><button class="btn2" id="drop-draft">Buang draf, kembali ke live</button><span id="save-status" class="cur"></span></div>
+<div class="warn">Catatan: <b>foto baru hanya berlaku di sesi ini</b> — ekspor sebelum menutup halaman, kalau tidak foto harus dipilih ulang. Tulisan tersimpan otomatis di draf HP ini.</div>
+<div id="forms"></div>
+<p class="cur">Belum tersedia di tahap ini: tambah/hapus produk, sertifikat, atau slide; ubah warna &amp; jenis huruf (gaya). Itu menyusul di tahap berikutnya.</p>
+</div>
+</section>
+
+<section id="tab-pratinjau" hidden>
+<div class="card"><h2>👀 Pratinjau</h2>
+<div class="warn">Pratinjau memakai <b>tampilan situs asli + editan Bapak</b> (mesin render situs sendiri). Pratinjau <b>tidak menambah</b> hitungan kunjungan.</div>
+<div class="row"><button class="btn" id="prev-build">Buat / perbarui pratinjau</button><span id="prev-status" class="cur"></span></div>
+<iframe id="prev" title="Pratinjau situs"></iframe>
+</div>
+</section>
+
+<section id="tab-tayang" hidden>
+<div class="card"><h2>🚀 Tayang</h2>
+<div class="warn">Selama Bapak <b>belum mengirim file</b> di bawah ini ke Bowo dan <b>belum mengetuk Izinkan</b> di kartu unggah, situs publik <b>TIDAK berubah</b> sama sekali.</div>
+<h3>Apa yang berubah</h3><ul class="diff" id="t-diff"></ul>
+<h3>File baru (foto/logo/video)</h3><ul class="diff" id="t-files"></ul>
+<div class="row"><button class="btn" id="t-download">⬇️ Unduh semua file tayang</button><button class="btn2" id="t-copy">📋 Salin ringkasan untuk Bowo</button></div>
+<p id="t-status" class="cur"></p>
+<h3>Cara tayang</h3><ol>
+<li>Unduh semua file di atas.</li>
+<li>Kirim file-file itu ke Bowo di chat (site.json + foto-foto baru).</li>
+<li>Bowo merakit ulang situs + mengunggah; Bapak ketuk <b>Izinkan</b> di kartu unggah.</li>
+<li>Bowo memeriksa situs live sudah berubah, baru melapor selesai.</li>
+</ol>
+</div>
+</section>
+</main>
+<script>
+/* ===== Panel Kontrol NUSARA — tahap 1 =====
+   Prinsip: panel ini TIDAK mengubah situs. Editan hanya hidup di browser
+   Bapak (draf HP) sampai diekspor sebagai file tayang. Situs publik hanya
+   berubah lewat alur lama: Bowo prerender + unggah + Bapak ketuk Izinkan. */
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const clone=o=>JSON.parse(JSON.stringify(o));
+const escHtml=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+function getPath(o,p){let c=o;for(const k of p.split('.')){if(c==null)return undefined;c=c[k];}return c;}
+function setPath(o,p,v){const ks=p.split('.');let c=o;for(let i=0;i<ks.length-1;i++){if(c[ks[i]]==null)c[ks[i]]={};c=c[ks[i]];}c[ks[ks.length-1]]=v;}
+function download(name,blob){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},2000);}
+
+/* Fungsi murni (bisa diuji di Node): rakit HTML pratinjau dari HTML live +
+   cfg editan. Menyuntikkan pengalih fetch SEBELUM js/app.js: site.json
+   dijawab dengan cfg editan (mesin render situs sendiri yang menggambar
+   ulang), beacon kunjungan dibungkam (pratinjau tidak menambah hitungan). */
+function panelBuildPreviewHTML(liveHTML,cfg){
+  const anchor='<script type="module" src="js/app.js';
+  if(!liveHTML.includes(anchor))throw new Error('Anchor app.js tidak ditemukan di HTML live');
+  const json=JSON.stringify(cfg).replace(/</g,'\\u003c');
+  const inj='<script>(function(){try{window.__PANEL_CFG__='+json+';'
+    +'var _f=window.fetch;window.fetch=function(){var a=arguments,u="";'
+    +'try{u=String(a[0]&&a[0].url?a[0].url:a[0]);}catch(e){}'
+    +'if(u.indexOf("site.json")!==-1)return Promise.resolve(new Response(JSON.stringify(window.__PANEL_CFG__),{headers:{"Content-Type":"application/json"}}));'
+    +'if(u.indexOf("/api/visit")!==-1)return Promise.resolve(new Response(JSON.stringify({ok:true}),{headers:{"Content-Type":"application/json"}}));'
+    +'return _f.apply(window,a);};'
+    +'if(navigator.sendBeacon){navigator.sendBeacon=function(){return true;};}'
+    +'}catch(e){}})();</scr'+'ipt>';
+  return liveHTML.replace(anchor,inj+anchor);
+}
+/* Fungsi murni: daftar path yang nilainya berubah (teks/tautan). File yang
+   diganti dengan path sama tidak muncul di sini — ditampilkan terpisah. */
+function panelDiffPaths(live,edited,base,acc){
+  base=base||'';acc=acc||[];
+  if(JSON.stringify(live)===JSON.stringify(edited))return acc;
+  if(live&&edited&&typeof live==='object'&&typeof edited==='object'&&!Array.isArray(live)&&!Array.isArray(edited)){
+    const keys=new Set([...Object.keys(live),...Object.keys(edited)]);
+    for(const k of keys)panelDiffPaths(live[k],edited[k],base?base+'.'+k:k,acc);
+  }else if(Array.isArray(live)&&Array.isArray(edited)){
+    const n=Math.max(live.length,edited.length);
+    for(let i=0;i<n;i++)panelDiffPaths(live[i],edited[i],base+'.'+i,acc);
+  }else acc.push(base);
+  return acc;
+}
+
+let liveCfg=null,editCfg=null,liveHTML=null;
+const newFiles={}; /* path -> {file,target,url} */
+const DRAFT_KEY='nusara-panel-draft-v1';
+let saveTimer=null;
+function autosave(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{try{localStorage.setItem(DRAFT_KEY,JSON.stringify(editCfg));$('#save-status').textContent='Draf tersimpan otomatis '+new Date().toLocaleTimeString('id-ID');}catch(e){}},800);}
+
+/* ---------- Tab ---------- */
+$$('.tabs button[data-tab]').forEach(b=>b.addEventListener('click',()=>{
+  $$('.tabs button[data-tab]').forEach(x=>x.classList.toggle('on',x===b));
+  ['monitor','konten','pratinjau','tayang'].forEach(t=>$('#tab-'+t).hidden=(t!==b.dataset.tab));
+  if(b.dataset.tab==='monitor'&&!window.__monLoaded)loadMonitor();
+  if(b.dataset.tab==='tayang')renderTayang();
+}));
+$('#logoutBtn').addEventListener('click',async()=>{try{await fetch('/api/admin/logout',{method:'POST'});}catch(e){}location.reload();});
+
+/* ---------- Monitor ---------- */
+async function loadMonitor(){
+  window.__monLoaded=true;$('#m-status').textContent='Memuat…';
+  try{
+    const r=await fetch('/api/stats?days=30',{cache:'no-cache'});
+    const j=await r.json();
+    const days=j.days||[];
+    const today=days[days.length-1]||{views:0,visitors:0};
+    $('#m-today-views').textContent=today.views;$('#m-today-vis').textContent=today.visitors;
+    $('#m-30-views').textContent=days.reduce((a,d)=>a+d.views,0);
+    $('#m-30-vis').textContent=days.reduce((a,d)=>a+d.visitors,0);
+    $('#m-since').textContent='Sejak: '+new Date(j.since).toLocaleString('id-ID',{timeZone:'Asia/Jakarta'})+' WIB (hitungan mulai nol lagi tiap server restart)';
+    const last14=days.slice(-14),mx=Math.max(1,...last14.map(d=>d.views));
+    $('#m-chart').innerHTML=last14.map(d=>`<div style="height:${Math.max(2,Math.round(d.views/mx*100))}%" title="${d.date}: ${d.views} dibuka"></div>`).join('');
+    $('#m-rows').innerHTML=[...days].reverse().map(d=>`<tr><td>${d.date}</td><td>${d.views}</td><td>${d.visitors}</td></tr>`).join('');
+    $('#m-status').textContent='Terakhir dimuat '+new Date().toLocaleTimeString('id-ID');
+  }catch(e){$('#m-status').textContent='Gagal memuat statistik: '+e.message;}
+}
+$('#m-reload').addEventListener('click',()=>{window.__monLoaded=false;loadMonitor();});
+
+/* ---------- Editor ---------- */
+const FIELD_NAMES={name:'Nama',role:'Peran',photo:'Foto',bio:'Bio',title:'Judul',tagline:'Tagline',description:'Deskripsi',services:'Layanan',eyebrow:'Baris atas',highlight:'Sorotan',subtitle:'Subjudul',videoCaption:'Keterangan video',poster:'Poster video',video:'Video',caption:'Keterangan',thumb:'Gambar kecil',image:'Gambar',serial:'Nomor sertifikat',date:'Tanggal',issuer:'Penerbit',issuerNote:'Catatan penerbit',category:'Kategori',theme:'Tema',label:'Label',thumbnail:'Gambar produk',cta:'Tombol',url:'Tautan',whatsappTopic:'Topik WA',whatsappDisplay:'Nomor WA tampil',whatsappNumber:'Nomor WA',defaultMessage:'Pesan otomatis',topics:'Topik konsultasi',footerLine:'Baris footer',logoImage:'Logo',lead:'Paragraf pembuka',siteUrl:'Situs JODOHIN',proposal:'Proposal (PDF)',buyMessage:'Pesan beli WA'};
+function labelOf(path){
+  const ks=path.split('.');
+  const itemName=(arr,idx,keys)=>{try{const it=getPath(editCfg,arr+'.'+idx);if(!it)return arr;for(const k of keys)if(it[k])return it[k];return arr;}catch(e){return arr;}};
+  let sec=ks[0];
+  if(sec==='products')sec='Produk '+itemName('products',ks[1],['name']);
+  else if(sec==='certifications')sec='Sertifikat '+itemName('certifications',ks[1],['name']);
+  else if(sec==='marketplace')sec='Marketplace '+itemName('marketplace',ks[1],['label']);
+  else if(sec==='jodohin'&&ks[1]==='slides')sec='Slide JODOHIN '+(itemName('jodohin.slides',ks[2],['caption']));
+  else if(sec==='achievement'&&ks[1]==='images')sec='Gambar prestasi '+(itemName('achievement.images',ks[2],['alt']));
+  else if(sec==='founder')sec='Founder';else if(sec==='studio')sec='Studio';else if(sec==='digital')sec='Digital';
+  else if(sec==='brand')sec='Merek';else if(sec==='hero')sec='Hero';else if(sec==='contact')sec='Kontak';else if(sec==='social')sec='Sosmed';else if(sec==='jodohin')sec='JODOHIN';
+  const field=FIELD_NAMES[ks[ks.length-1]]||ks[ks.length-1];
+  return sec+' → '+field;
+}
+function fText(path,label,ph){
+  const v=getPath(editCfg,path);
+  return `<label>${label}</label><input type="text" data-p="${path}" value="${escHtml(v==null?'':v)}" placeholder="${escHtml(ph||'')}">`;
+}
+function fArea(path,label,mode){
+  let v=getPath(editCfg,path);
+  let txt='';
+  if(Array.isArray(v))txt=mode==='paras'?v.join('\n\n'):v.join('\n');
+  else txt=v==null?'':v;
+  return `<label>${label}</label><textarea data-p="${path}" data-mode="${mode}">${escHtml(txt)}</textarea>`;
+}
+function fFile(path,label,accept){
+  const cur=getPath(editCfg,path);
+  const nf=newFiles[path];
+  return `<label>${label}</label><div class="cur">Saat ini: ${escHtml(cur||'(belum ada)')}</div>`
+    +`<input type="file" data-f="${path}" accept="${accept}">`
+    +(nf?`<div class="cur">Baru: ${escHtml(nf.file.name)} → ${escHtml(nf.target)}</div><img class="thumb" src="${nf.url}">`:'');
+}
+function section(title,inner){return `<details open><summary style="cursor:pointer;font-weight:700;margin:16px 0 8px;font-size:1.05rem">${title}</summary>${inner}</details>`;}
+function buildForms(){
+  let h='';
+  h+=section('Merek & Hero',
+    fText('brand.tagline','Tagline (header & footer)')+fText('brand.footerLine','Baris footer')
+    +fFile('brand.logoImage','Logo (kosong = pakai tulisan NUSARA)','image/jpeg,image/png,image/webp')
+    +fText('hero.title','Judul hero (huruf besar di atas)')+fArea('hero.lead','Paragraf pembuka hero','text'));
+  const f=editCfg.founder||{};
+  h+=section('Founder',
+    fText('founder.name','Nama')+fText('founder.role','Peran')+fFile('founder.photo','Foto founder','image/jpeg,image/png,image/webp')
+    +fArea('founder.bio','Bio (pisahkan paragraf dengan baris kosong)','paras'));
+  for(const key of ['studio','digital']){
+    const b=editCfg[key]||{};
+    h+=section(key==='studio'?'Studio':'Digital',
+      fText(key+'.title','Judul')+fText(key+'.tagline','Tagline')+fArea(key+'.description','Deskripsi (pisahkan paragraf dengan baris kosong)','paras')
+      +fArea(key+'.services','Layanan (satu per baris)','lines'));
+  }
+  const j=editCfg.jodohin||{};
+  let jh=fText('jodohin.eyebrow','Baris atas')+fText('jodohin.title','Judul')+fText('jodohin.highlight','Sorotan di judul (harus sama persis dengan sebagian judul)')+fText('jodohin.subtitle','Subjudul')+fArea('jodohin.description','Deskripsi','text')+fText('jodohin.videoCaption','Keterangan video')+fFile('jodohin.poster','Poster video','image/jpeg,image/png,image/webp')+fFile('jodohin.video','Video (MP4, bisa besar)','video/mp4')+fText('jodohin.siteUrl','Situs JODOHIN')+fText('jodohin.buyMessage','Pesan beli WA');
+  (j.slides||[]).forEach((s,i)=>{jh+=`<h3>Slide ${i+1}</h3>`+fText(`jodohin.slides.${i}.caption`,'Keterangan')+fFile(`jodohin.slides.${i}.src`,'Gambar slide','image/jpeg,image/png,image/webp');});
+  h+=section('JODOHIN',jh);
+  let ch='';
+  (editCfg.certifications||[]).forEach((c,i)=>{
+    ch+=`<h3>${escHtml(c.name||('Sertifikat '+(i+1)))}</h3>`+fText(`certifications.${i}.name`,'Nama')+fText(`certifications.${i}.issuer`,'Penerbit')+fText(`certifications.${i}.issuerNote`,'Catatan penerbit')+fText(`certifications.${i}.date`,'Tanggal')+fText(`certifications.${i}.serial`,'Nomor sertifikat')+fFile(`certifications.${i}.thumb`,'Gambar kecil','image/jpeg,image/png,image/webp')+fFile(`certifications.${i}.image`,'Gambar besar','image/jpeg,image/png,image/webp');
+  });
+  h+=section('Sertifikat',ch);
+  let ah=fText('achievement.title','Judul')+fText('achievement.category','Kategori')+fText('achievement.theme','Tema')+fText('achievement.label','Label')+fArea('achievement.description','Deskripsi','text');
+  (editCfg.achievement.images||[]).forEach((im,i)=>{ah+=`<h3>Gambar ${i+1}</h3>`+fText(`achievement.images.${i}.alt`,'Keterangan')+fFile(`achievement.images.${i}.thumb`,'Gambar kecil','image/jpeg,image/png,image/webp')+fFile(`achievement.images.${i}.image`,'Gambar besar','image/jpeg,image/png,image/webp');});
+  h+=section('Prestasi',ah);
+  let ph='';
+  (editCfg.products||[]).forEach((p,i)=>{
+    ph+=`<h3>${escHtml(p.name||('Produk '+(i+1)))}</h3>`+fText(`products.${i}.name`,'Nama')+fText(`products.${i}.category`,'Kategori')+fArea(`products.${i}.description`,'Deskripsi','text')+fText(`products.${i}.cta`,'Tombol')+fFile(`products.${i}.thumbnail`,'Gambar produk','image/jpeg,image/png,image/webp')+fText(`products.${i}.url`,'Tautan (bila kosong, pakai topik WA)')+fText(`products.${i}.whatsappTopic`,'Topik WA');
+  });
+  h+=section('Produk',ph);
+  h+=section('Kontak',
+    fText('contact.whatsappDisplay','Nomor WA tampil')+fText('contact.whatsappNumber','Nomor WA (format 62…)')+fArea('contact.defaultMessage','Pesan otomatis','text')+fArea('contact.topics','Topik konsultasi (satu per baris)','lines'));
+  h+=section('Sosmed & Marketplace',
+    fText('social.creator.instagram.label','Label IG kreator')+fText('social.creator.instagram.url','Tautan IG kreator')
+    +fText('social.creator.tiktok.label','Label TikTok kreator')+fText('social.creator.tiktok.url','Tautan TikTok kreator')
+    +fText('social.business.instagram.label','Label IG bisnis')+fText('social.business.instagram.url','Tautan IG bisnis')
+    +fText('social.business.tiktok.label','Label TikTok bisnis')+fText('social.business.tiktok.url','Tautan TikTok bisnis')
+    +((editCfg.marketplace||[]).map((m,i)=>fText(`marketplace.${i}.label`,'Label marketplace '+(i+1))+fText(`marketplace.${i}.url`,'Tautan marketplace '+(i+1))).join('')));
+  $('#forms').innerHTML=h;
+  $$('#forms input[data-p]').forEach(el=>el.addEventListener('input',()=>{setPath(editCfg,el.dataset.p,el.value);autosave();}));
+  $$('#forms textarea[data-p]').forEach(el=>el.addEventListener('input',()=>{
+    const mode=el.dataset.mode;
+    if(mode==='paras')setPath(editCfg,el.dataset.p,el.value.split(/\n\s*\n/).map(s=>s.trim()).filter(Boolean));
+    else if(mode==='lines')setPath(editCfg,el.dataset.p,el.value.split('\n').map(s=>s.trim()).filter(Boolean));
+    else setPath(editCfg,el.dataset.p,el.value);
+    autosave();
+  }));
+  $$('#forms input[data-f]').forEach(el=>el.addEventListener('change',()=>{
+    const file=el.files[0];if(!file)return;
+    const path=el.dataset.f;
+    let target=getPath(editCfg,path);
+    if(!target){
+      const ext=file.name.split('.').pop().toLowerCase();
+      if(!['jpg','jpeg','png','webp'].includes(ext)){alert('Format foto harus JPG, PNG, atau WebP.');el.value='';return;}
+      target='assets/brand/logo.'+ext;
+    }
+    if(newFiles[path]&&newFiles[path].url)URL.revokeObjectURL(newFiles[path].url);
+    newFiles[path]={file,target,url:URL.createObjectURL(file)};
+    buildForms();
+    $('#save-status').textContent='Foto baru dipilih: '+file.name+' (ekspor sebelum menutup halaman)';
+  }));
+}
+$('#save-draft').addEventListener('click',()=>{try{localStorage.setItem(DRAFT_KEY,JSON.stringify({savedAt:new Date().toISOString(),cfg:editCfg}));$('#save-status').textContent='Draf tersimpan.';}catch(e){$('#save-status').textContent='Gagal menyimpan draf: '+e.message;}});
+$('#drop-draft').addEventListener('click',()=>{try{localStorage.removeItem(DRAFT_KEY);}catch(e){}for(const k of Object.keys(newFiles)){if(newFiles[k].url)URL.revokeObjectURL(newFiles[k].url);delete newFiles[k];}editCfg=clone(liveCfg);buildForms();$('#save-status').textContent='Draf dibuang, kembali ke isi live.';});
+
+/* ---------- Pratinjau ---------- */
+$('#prev-build').addEventListener('click',async()=>{
+  $('#prev-status').textContent='Membuat pratinjau…';
+  try{
+    if(!liveHTML)liveHTML=await (await fetch('/',{cache:'no-cache'})).text();
+    const pc=clone(editCfg);
+    for(const [p,nf] of Object.entries(newFiles))setPath(pc,p,nf.url);
+    const html=panelBuildPreviewHTML(liveHTML,pc);
+    const fr=$('#prev');
+    fr.onload=()=>{try{
+      const d=fr.contentDocument;if(!d)return;
+      const set=(sel,val)=>{const el=d.querySelector(sel);if(el&&val!=null)el.textContent=val;};
+      if(pc.hero){set('#hero-h',pc.hero.title);set('.hero-copy .lead',pc.hero.lead);}
+      if(pc.brand){set('header .brand-tag',pc.brand.tagline);set('footer .foot-tag',pc.brand.tagline);set('footer .foot-line',pc.brand.footerLine);}
+    }catch(e){}};
+    fr.srcdoc=html;
+    $('#prev-status').textContent='Pratinjau dibuat. Geser ke bawah untuk melihat seluruh halaman.';
+  }catch(e){$('#prev-status').textContent='Gagal membuat pratinjau: '+e.message;}
+});
+
+/* ---------- Tayang ---------- */
+function exportCfg(){
+  const c=clone(editCfg);
+  for(const [p,nf] of Object.entries(newFiles))setPath(c,p,nf.target);
+  return c;
+}
+function renderTayang(){
+  const c=exportCfg();
+  const paths=panelDiffPaths(liveCfg,c);
+  $('#t-diff').innerHTML=paths.length?paths.map(p=>`<li>${escHtml(labelOf(p))}</li>`).join(''):'<li>Tidak ada perubahan tulisan/tautan.</li>';
+  const files=Object.values(newFiles);
+  $('#t-files').innerHTML=files.length?files.map(nf=>`<li>${escHtml(nf.file.name)} → ${escHtml(nf.target)} (${Math.round(nf.file.size/1024)} KB)</li>`).join(''):'<li>Tidak ada foto/logo/video baru.</li>';
+}
+$('#t-download').addEventListener('click',()=>{
+  const c=exportCfg();
+  download('site.json',new Blob([JSON.stringify(c,null,1)],{type:'application/json'}));
+  let i=0;
+  for(const nf of Object.values(newFiles)){setTimeout(()=>download(nf.target.split('/').pop(),nf.file),300*(++i));}
+  $('#t-status').textContent='File diunduh. Kirim site.json + foto-foto di atas ke Bowo di chat.';
+});
+$('#t-copy').addEventListener('click',async()=>{
+  const c=exportCfg();
+  const paths=panelDiffPaths(liveCfg,c);
+  let txt='Perubahan situs NUSARA (dari panel kontrol):\n';
+  txt+=(paths.length?paths.map(p=>'- '+labelOf(p)).join('\n'):'- (tidak ada perubahan tulisan/tautan)')+'\n';
+  const files=Object.values(newFiles);
+  txt+='File baru:\n'+(files.length?files.map(nf=>'- '+nf.file.name+' → '+nf.target).join('\n'):'- (tidak ada)')+'\nMinta tolong tayangkan (file site.json + foto terlampir).';
+  try{await navigator.clipboard.writeText(txt);$('#t-status').textContent='Ringkasan disalin. Tempel di chat Bowo + lampirkan file unduhan.';}
+  catch(e){const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();$('#t-status').textContent='Ringkasan disalin (cara cadangan). Tempel di chat Bowo + lampirkan file unduhan.';}
+});
+
+/* ---------- Muat ---------- */
+(async()=>{
+  try{
+    liveCfg=await (await fetch('site.json',{cache:'no-cache'})).json();
+    editCfg=clone(liveCfg);
+    let draftNote='';
+    try{
+      const raw=localStorage.getItem(DRAFT_KEY);
+      if(raw){const d=JSON.parse(raw);if(d&&d.cfg&&typeof d.cfg==='object'){editCfg=d.cfg;draftNote='Draf tersimpan dimuat ('+(d.savedAt?new Date(d.savedAt).toLocaleString('id-ID'):'')+'). Foto harus dipilih ulang bila ada.';}}
+    }catch(e){}
+    if(draftNote){const n=$('#draft-note');n.hidden=false;n.textContent=draftNote;}
+    $('#load-status').textContent='Isi live dimuat. Silakan ubah.';
+    buildForms();
+  }catch(e){$('#load-status').textContent='Gagal memuat site.json: '+e.message;}
+})();
+</script></body></html>

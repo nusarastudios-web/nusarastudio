@@ -5,7 +5,7 @@
 //  (1) memeriksa kesegaran konten (meta site-hash vs site.json live);
 //      bila tidak cocok (mis. site.json diubah tanpa prerender ulang),
 //      konten lama dibersihkan dan di-render ulang dari site.json;
-//  (2) menghidupkan interaktif: menu, lightbox, form WA, autoplay JODOHIN.
+//  (2) menghidupkan interaktif: menu, lightbox, dan form WA.
 // Setelah mengubah site.json: jalankan `node prerender.js`, lalu upload
 // index.html + js/app.js ke repo (folder nusara-app).
 const $ = (s, r = document) => r.querySelector(s);
@@ -49,7 +49,7 @@ function zoomBtn(item, cls, label) {
 
 // Seluruh append konten — hanya jalan bila prerender tidak segar.
 function renderContent() {
-  const { brand, founder, studio, digital, jodohin, certifications, achievement, social, products, marketplace, contact } = cfg;
+  const { brand, founder, studio, digital, certifications, achievement, social, products, marketplace, contact } = cfg;
   if (brand.logoImage) document.querySelectorAll('[data-logo]').forEach((el) => el.replaceChildren(h('img', { src: brand.logoImage, alt: brand.name })));
 
   // Founder
@@ -70,27 +70,6 @@ function renderContent() {
   sr.append(h('div', { class: 'biz' },
     biz(studio, [h('a', { class: 'btn btn-primary', href: '#portfolio' }, 'Lihat Portofolio Studio'), h('a', { class: 'btn btn-outline', href: waLink('Produksi Video AI'), target: '_blank', rel: 'noopener noreferrer' }, 'Konsultasi Proyek')], studio.showcase),
     biz(digital, [h('a', { class: 'btn btn-primary', href: '#products' }, 'Jelajahi Produk Digital'), h('a', { class: 'btn btn-outline', href: waLink('AI Agent Setup'), target: '_blank', rel: 'noopener noreferrer' }, 'Konsultasi AI')])));
-
-  // JODOHIN showcase (di atas Sertifikat)
-  const j = jodohin;
-  const [jPre, jPost] = j.title.split(j.highlight);
-  const waBuy = `https://wa.me/${contact.whatsappNumber}?text=${encodeURIComponent(j.buyMessage)}`;
-  $('#jodohin-root').append(
-    h('p', { class: 'jod-eyebrow' }, j.eyebrow),
-    h('h2', {}, jPre, h('span', { class: 'grad' }, j.highlight), jPost),
-    h('p', { class: 'jod-sub' }, j.subtitle),
-    h('p', {}, j.description),
-    h('figure', { class: 'jod-video' },
-      h('div', { class: 'jod-media' },
-        h('div', { class: 'jod-phone' },
-          h('video', { controls: true, muted: true, preload: 'metadata', poster: j.poster, playsinline: true }, h('source', { src: j.video, type: 'video/mp4' })))),
-      h('figcaption', {}, j.videoCaption)),
-    h('div', { class: 'jod-slides' }, j.slides.map((s) =>
-      h('figure', { class: 'jod-slide' }, h('img', { src: s.src, alt: s.caption, loading: 'lazy' }), h('figcaption', {}, s.caption)))),
-    h('div', { class: 'row' },
-      h('a', { class: 'btn btn-primary', href: waBuy, target: '_blank', rel: 'noopener noreferrer' }, 'Minat Beli — Chat Admin WA'),
-      ext('Coba JODOHIN Gratis', j.siteUrl, 'btn btn-outline'),
-      h('a', { class: 'btn btn-outline', href: j.proposal, download: true }, '⬇ Download Proposal Investor (PDF)')));
 
   // Certifications
   const cr = $('#cert-root');
@@ -164,36 +143,7 @@ function initInteractive() {
     };
     fs.addEventListener('change', upd); upd();
   }
-  // Video JODOHIN putar otomatis begitu section-nya terlihat di layar (coba ulang bila gagal sekali)
-  const jv = document.querySelector('.jod-video video');
-  if (jv && 'IntersectionObserver' in window) {
-    let tries = 0;
-    const io = new IntersectionObserver((es) => { es.forEach((e) => {
-      if (!e.isIntersecting) return;
-      const attempt = () => { if (jv.paused) jv.play().then(() => io.disconnect()).catch(() => { if (++tries < 3) setTimeout(attempt, 2000); }); };
-      attempt();
-    }); }, { threshold: 0.25 });
-    io.observe(jv);
-    jv.addEventListener('playing', () => io.disconnect(), { once: true });
-  }
-  // Slide JODOHIN geser otomatis tiap 3,5 detik; jeda saat disentuh/di-hover
-  const strip = document.querySelector('.jod-slides');
-  if (strip) {
-    let auto = true, timer = null;
-    const step = () => {
-      const w = strip.firstElementChild ? strip.firstElementChild.getBoundingClientRect().width + 12 : 300;
-      if (strip.scrollLeft + strip.clientWidth >= strip.scrollWidth - 10) strip.scrollTo({ left: 0, behavior: 'smooth' });
-      else strip.scrollBy({ left: w, behavior: 'smooth' });
-    };
-    const start = () => { if (!timer) timer = setInterval(() => { if (auto) step(); }, 3500); };
-    const stop = () => { if (timer) { clearInterval(timer); timer = null; } };
-    strip.addEventListener('pointerdown', () => { auto = false; stop(); });
-    strip.addEventListener('pointerup', () => { setTimeout(() => { auto = true; start(); }, 5000); });
-    if ('IntersectionObserver' in window) {
-      const io2 = new IntersectionObserver((es) => { es.forEach((e) => { if (e.isIntersecting) start(); else stop(); }); }, { threshold: 0.3 });
-      io2.observe(strip);
-    } else start();
-  }
+
 }
 
 // Hash djb2 — HARUS identik dengan fungsi hash() di prerender.js.
@@ -211,7 +161,7 @@ function clearPrerendered() {
     const r = document.getElementById(id);
     if (r) r.querySelectorAll(':scope > :not(h2)').forEach((el) => el.remove());
   }
-  for (const id of ['jodohin-root', 'foot-links']) document.getElementById(id)?.replaceChildren();
+  for (const id of ['foot-links']) document.getElementById(id)?.replaceChildren();
 }
 
 // Menu mobile

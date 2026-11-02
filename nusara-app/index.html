@@ -85,28 +85,28 @@
   .collage img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;display:block;border:1px solid #2a2926}
   .collage figcaption{font-size:11px;letter-spacing:.06em;color:#9a937f;margin-top:8px}
   @media(max-width:860px){
-    .nav{padding:16px 20px}
-    .wordmark span{display:none}
-    .nav-links{margin-left:0;gap:12px}
+    .nav{padding:16px;gap:10px;flex-wrap:wrap}
+    .wordmark span:last-child{display:none}
+    .nav-links{margin-left:0;gap:10px;flex-wrap:wrap}
     .nav-links a{font-size:9px}
     .nav-right{display:none}
-    .hero{min-height:100svh;height:auto;padding:110px 20px 64px;display:flex;align-items:center}
+    .hero{min-height:100svh;height:auto;padding:118px 16px 64px;display:flex;align-items:flex-start}
     .hero-image-wrap{position:absolute;inset:0}
     .hero-image-wrap img{object-position:70% 20%;transform:scale(.85);transform-origin:bottom right}
     .hero-copy{max-width:none;margin-top:0}
-    .hero h1{font-size:clamp(2.5rem,11.5vw,3.5rem);line-height:.95}
-    .hero h1 span:nth-child(2){padding-left:.7em}
-    .hero h1 .accent-line{padding-left:1.4em}
+    .hero h1{font-size:clamp(2.9rem,14.5vw,4.2rem);line-height:.92}
+    .hero h1 span:nth-child(2){padding-left:.4em}
+    .hero h1 .accent-line{padding-left:.8em}
     .hero-description{margin:24px 0 0;max-width:300px;font-size:14px}
     .circle-cta{margin:28px 0 0;width:100px;height:100px}
-    .hero-meta{left:20px;right:20px;bottom:20px}
+    .hero-meta{left:16px;right:16px;bottom:20px}
     .about{grid-template-columns:1fr}
     form{grid-template-columns:1fr}
   }
   @media(max-width:400px){
-    .hero h1{font-size:2.4rem}
-    .hero h1 span:nth-child(2){padding-left:.5em}
-    .hero h1 .accent-line{padding-left:1em}
+    .hero h1{font-size:2.7rem}
+    .hero h1 span:nth-child(2){padding-left:.3em}
+    .hero h1 .accent-line{padding-left:.7em}
   }
 @media(max-width:860px){
     .collage{grid-template-columns:repeat(2,1fr)}
